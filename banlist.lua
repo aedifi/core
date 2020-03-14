@@ -256,10 +256,12 @@ function HandleBanCommand(a_Split, a_Player)
 	-- Add the player to the banlist:
 	AddPlayerToBanlist(a_Split[2], Reason, a_Player:GetName());
 
-	-- Try akd kick the banned player, and send an appropriated response to the banner.
+	-- Try and kick the banned player, and send an appropriated response to the banner.
 	if (KickPlayer(a_Split[2], Reason)) then
+		LOGINFO(a_Player:GetName() .. " kicked and banned " .. a_Split[2] .. ".")
 		SendMessageSuccess(a_Player, cChatColor.LightGray .. "Successfully kicked and banned " .. a_Split[2] .. ".")
 	else
+		LOGINFO(a_Player:GetName() .. " banned " .. a_Split[2] .. ".")
 		SendMessageFailure(a_Player, cChatColor.LightGray .. "Successfully banned " .. a_Split[2] .. ".")
 	end
 
