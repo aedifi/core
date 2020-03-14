@@ -1,15 +1,14 @@
-
 -- Info.lua
-
--- Implements the g_PluginInfo standard plugin description
+-- Implements the g_PluginInfo standard plugin description.
+-- Modified for the Aedificium platform.
 
 g_PluginInfo = 
 {
 	Name = "Core",
-	Version = "16",
-	Date = "2019-12-04",
-	SourceLocation = "https://github.com/cuberite/Core",
-	Description = [[Implements some of the basic commands needed to run a simple server.]],
+	Version = "17",
+	Date = "2020-03-14",
+	SourceLocation = "https://github.com/aedifi/core",
+	Description = [[Implements basic commands and functions.]],
 	
 	Commands =
 	{
@@ -1177,5 +1176,3 @@ g_PluginInfo =
 		},
 	},  -- Permissions
 }  -- g_PluginInfo
-
-
