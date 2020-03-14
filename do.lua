@@ -1,25 +1,27 @@
-function HandleDoCommand( Split, Player )
+function HandleDoCommand(Split, Player)
 
 	if #Split < 3 then
-		SendMessage( Player, "Usage: " .. Split[1] .. " <player> <command> [arguments ...]" )
+		SendMessage(Player, cChatColor.LightGray .. "Usage: " .. Split[1] .. " <player> <command> [arguments]")
 		return true
 	end
 
 	-- Get the command and arguments.
-	local newSplit = table.concat( Split, " ", 3 )
+	local newSplit = table.concat(Split, " ", 3)
 
-	local FoundPlayerCallback = function( a_Player )
+	local FoundPlayerCallback = function(a_Player)
 		local pluginManager = cRoot:Get():GetPluginManager()
-		if (pluginManager:ExecuteCommand( a_Player, newSplit )) then
-			SendMessageSuccess( Player, "Command executed!" )
+		if (pluginManager:ExecuteCommand(a_Player, newSplit)) then
+			LOGINFO(Player:GetName() .. " executed a sudo command.")
+			SendMessageSuccess(Player, cChatColor.LightGray .. "Executed the command.")
 		else
-			SendMessageFailure( Player, "Bad command - execution failed" )
+			LOGINFO(Player:GetName() .. " failed to execute a sudo command.")
+			SendMessageFailure(Player, cChatColor.LightGray .. "Couldn't execute that command.")
 		end
 		return true
 	end
 
 	if not cRoot:Get():FindAndDoWithPlayer( Split[2], FoundPlayerCallback ) then
-		SendMessageFailure( Player, "Could not find player" )
+		SendMessageFailure(Player, cChatColor.LightGray .. "Couldn't find that player.")
 		return true
 	end
 	
@@ -29,7 +31,7 @@ end
 function HandleSudoCommand ( Split, Player )
 
 if #Split < 3 then
-		SendMessage( Player, "Usage: " .. Split[1] .. " <player> <command> [arguments ...]" )
+		SendMessage(Player, cChatColor.LightGray .. "Usage: " .. Split[1] .. " <player> <command> [arguments]")
 		return true
 	end
 
@@ -39,15 +41,17 @@ if #Split < 3 then
 	local FoundPlayerCallback = function( a_Player )
 		local pluginManager = cRoot:Get():GetPluginManager()
 		if (pluginManager:ForceExecuteCommand( a_Player, newSplit )) then
-			SendMessageSuccess( Player, "Command executed!" )
+			LOGINFO(Player:GetName() .. " executed a sudo command.")
+			SendMessageSuccess(Player, cChatColor.LightGray .. "Executed the command.")
 		else
-			SendMessageFailure( Player, "Bad command - execution failed" )
+			LOGINFO(Player:GetName() .. " failed to execute a sudo command.")
+			SendMessageFailure(Player, cChatColor.LightGray .. "Couldn't execute that command.")
 		end
 		return true
 	end
 
 	if not cRoot:Get():FindAndDoWithPlayer( Split[2], FoundPlayerCallback ) then
-		SendMessageFailure( Player, "Could not find player" )
+		SendMessageFailure(Player, cChatColor.LightGray .. "Couldn't find that player.")
 		return true
 	end
 	
