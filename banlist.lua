@@ -242,7 +242,7 @@ end
 function HandleBanCommand(a_Split, a_Player)
 	-- Check params:
 	if (a_Split[2] == nil) then
-		SendMessage(a_Player, "Usage: " .. a_Split[1] .. " <player> [reason ...]")
+		SendMessage(a_Player, cChatColor.LightGray .. "Usage: " .. a_Split[1] .. " <player> [reason]")
 		return true
 	end
 
@@ -258,9 +258,9 @@ function HandleBanCommand(a_Split, a_Player)
 
 	-- Try akd kick the banned player, and send an appropriated response to the banner.
 	if (KickPlayer(a_Split[2], Reason)) then
-		SendMessageSuccess(a_Player, "Successfully kicked and banned " .. a_Split[2])
+		SendMessageSuccess(a_Player, cChatColor.LightGray .. "Successfully kicked and banned " .. a_Split[2] .. ".")
 	else
-		SendMessageFailure(a_Player, "Successfully banned " .. a_Split[2])
+		SendMessageFailure(a_Player, "Successfully banned " .. a_Split[2] .. ".")
 	end
 
 	return true
@@ -274,7 +274,7 @@ end
 function HandleUnbanCommand(a_Split, a_Player)
 	-- Check params:
 	if ((a_Split[2] == nil) or (a_Split[3] ~= nil)) then
-		SendMessage(a_Player, "Usage: " .. a_Split[1] .. " <player>")
+		SendMessage(a_Player, cChatColor.LightGray .. "Usage: " .. a_Split[1] .. " <player>")
 		return true
 	end
 
@@ -283,7 +283,7 @@ function HandleUnbanCommand(a_Split, a_Player)
 
 	-- Notify success:
 	LOGINFO(a_Player:GetName() .. " unbanned " .. a_Split[2])
-	SendMessageSuccess(a_Player, "Unbanned " .. a_Split[2])
+	SendMessageSuccess(a_Player, cChatColor.LightGray .. "Successfully unbanned " .. a_Split[2] .. ".")
 	return true
 end
 
@@ -294,7 +294,7 @@ end
 function HandleConsoleBan(a_Split)
 	-- Check params:
 	if (a_Split[2] == nil) then
-		return true, "Usage: " .. a_Split[1] .. " <player> [reason ...]"
+		return true, "Usage: " .. a_Split[1] .. " <player> [reason]"
 	end
 	local PlayerName = a_Split[2]
 
@@ -311,7 +311,7 @@ function HandleConsoleBan(a_Split)
 	if not(KickPlayer(PlayerName, Reason)) then
 		LOGINFO("Could not find player " .. PlayerName .. ", but banned them anyway.")
 	else
-		LOGINFO("Successfully kicked and banned player " .. PlayerName)
+		LOGINFO("Successfully kicked and banned player " .. PlayerName .. ".)
 	end
 
 	return true
@@ -324,7 +324,7 @@ end
 function HandleConsoleBanIP(a_Split)
 	-- Check params:
 	if (a_Split[2] == nil) then
-		return true, "Usage: " .. a_Split[1] .. " <IP> [reason ..]"
+		return true, "Usage: " .. a_Split[1] .. " <address> [reason]"
 	end
 	local BanIP = a_Split[2]
 
@@ -348,7 +348,7 @@ function HandleConsoleBanIP(a_Split)
 	)
 
 	-- Report:
-	LOGINFO("Successfully banned IP " .. BanIP)
+	LOGINFO("Successfully banned the address " .. BanIP .. ".)
 	return true
 end
 
@@ -365,7 +365,7 @@ function HandleConsoleBanList(a_Split)
 		return true, table.concat(ListBannedIPs(), ", ")
 	end
 
-	return true, "Unknown banlist subcommand"
+	return true, "Unknown banlist subcommand."
 end
 
 
@@ -382,7 +382,7 @@ function HandleConsoleUnban(a_Split)
 	RemovePlayerFromBanlist(a_Split[2])
 
 	-- Inform the admin:
-	LOGINFO("Unbanned " .. a_Split[2])
+	LOGINFO("Unbanned " .. a_Split[2] .. ".)
 	return true
 end
 
@@ -393,14 +393,14 @@ end
 function HandleConsoleUnbanIP(a_Split)
 	-- Check params:
 	if ((a_Split[2] == nil) or (a_Split[3] ~= nil)) then
-		return true, "Usage: " .. a_Split[1] .. " <IP>"
+		return true, "Usage: " .. a_Split[1] .. " <address>"
 	end
 
 	-- Unban the player:
 	RemoveIPFromBanlist(a_Split[2])
 
 	-- Inform the admin:
-	LOGINFO("Unbanned " .. a_Split[2])
+	LOGINFO("Unbanned " .. a_Split[2] .. ".)
 	return true
 end
 
