@@ -2,7 +2,8 @@ function HandleClearCommand(Split, Player)
 
     if (Split[2] == nil) then
         Player:GetInventory():Clear()
-        SendMessageSuccess( Player, "You cleared your own inventory" )
+        LOGINFO(Player:GetName() .. " cleared their inventory.")
+        SendMessageSuccess(Player, cChatColor.LightGray .. "Cleared your own inventory.")
         return true
     end
 
@@ -17,9 +18,10 @@ function HandleClearCommand(Split, Player)
 
         cRoot:Get():FindAndDoWithPlayer(Split[2], ClearInventory)
         if (InventoryCleared) then
-            SendMessageSuccess(Player, "You cleared the inventory of " .. Split[2])
+            LOGINFO(Player:GetName() .. " cleared the inventory of " .. Split[2] .. ".")
+            SendMessageSuccess(Player, cChatColor.LightGray .. "Cleared the inventory of " .. Split[2] .. ".")
         else
-            SendMessageFailure(Player, "Player not found")
+            SendMessageFailure(Player, cChatColor.LightGray .. "Couldn't find that player.")
         end
 
         return true
