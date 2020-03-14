@@ -260,7 +260,7 @@ function HandleBanCommand(a_Split, a_Player)
 	if (KickPlayer(a_Split[2], Reason)) then
 		SendMessageSuccess(a_Player, cChatColor.LightGray .. "Successfully kicked and banned " .. a_Split[2] .. ".")
 	else
-		SendMessageFailure(a_Player, "Successfully banned " .. a_Split[2] .. ".")
+		SendMessageFailure(a_Player, cChatColor.LightGray .. "Successfully banned " .. a_Split[2] .. ".")
 	end
 
 	return true
