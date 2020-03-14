@@ -1,17 +1,9 @@
-
 -- banlist.lua
-
--- Implements the banlist-related commands, console commands, API and storage
-
-
-
+-- Implements the banlist-related commands, console commands, and storage.
+-- Modified for the Aedificium platform.
 
 --- The SQLite handle to the banlist database:
 local BanlistDB
-
-
-
-
 
 --- Adds the specified IP address to the banlist, with the specified ban reason
 local function AddIPToBanlist(a_IP, a_Reason, a_BannedBy)
@@ -26,10 +18,6 @@ local function AddIPToBanlist(a_IP, a_Reason, a_BannedBy)
 		{ a_IP, a_Reason, os.time(), a_BannedBy, }
 	)
 end
-
-
-
-
 
 --- Adds the specified player to the banlist, with the specified ban reason
 -- Resolves the player UUID, if needed, but only through cache, not to block
@@ -57,10 +45,6 @@ function AddPlayerToBanlist(a_PlayerName, a_Reason, a_BannedBy)
 	)
 end
 
-
-
-
-
 --- Checks if the IP address is banned
 -- Returns true and reason if banned, false if not
 local function IsIPBanned(a_IP)
@@ -87,10 +71,6 @@ local function IsIPBanned(a_IP)
 		return true, Reason
 	end
 end
-
-
-
-
 
 --- Checks if the player is banned
 -- Returns true and reason if banned, false if not
@@ -131,10 +111,6 @@ local function IsPlayerBanned(a_PlayerUUID, a_PlayerName)
 	end
 end
 
-
-
-
-
 --- Returns an array-table of all banned players
 local function ListBannedPlayers()
 	local res = {}
@@ -147,10 +123,6 @@ local function ListBannedPlayers()
 	return res
 end
 
-
-
-
-
 --- Returns an array-table of all banned ips
 local function ListBannedIPs()
 	local res = {}
@@ -162,10 +134,6 @@ local function ListBannedIPs()
 	)
 	return res
 end
-
-
-
-
 
 --- Removes the specified IP from the banlist
 -- No action if the IP is not banned
@@ -180,10 +148,6 @@ local function RemoveIPFromBanlist(a_IP)
 	))
 end
 
-
-
-
-
 --- Removes the specified player from the banlist
 -- No action if the player is not banned
 local function RemovePlayerFromBanlist(a_PlayerName)
@@ -196,10 +160,6 @@ local function RemovePlayerFromBanlist(a_PlayerName)
 		{ a_PlayerName }
 	))
 end
-
-
-
-
 
 --- Resolves the UUIDs for players that don't have their UUIDs in the DB
 -- This may happen when banning a player who never connected to the server and thus is not yet cached in the UUID lookup
@@ -235,10 +195,6 @@ local function ResolveUUIDs()
 	end
 end
 
-
-
-
-
 function HandleBanCommand(a_Split, a_Player)
 	-- Check params:
 	if (a_Split[2] == nil) then
@@ -269,10 +225,6 @@ function HandleBanCommand(a_Split, a_Player)
 
 end
 
-
-
-
-
 function HandleUnbanCommand(a_Split, a_Player)
 	-- Check params:
 	if ((a_Split[2] == nil) or (a_Split[3] ~= nil)) then
@@ -288,10 +240,6 @@ function HandleUnbanCommand(a_Split, a_Player)
 	SendMessageSuccess(a_Player, cChatColor.LightGray .. "Successfully unbanned " .. a_Split[2] .. ".")
 	return true
 end
-
-
-
-
 
 function HandleConsoleBan(a_Split)
 	-- Check params:
@@ -318,10 +266,6 @@ function HandleConsoleBan(a_Split)
 
 	return true
 end
-
-
-
-
 
 function HandleConsoleBanIP(a_Split)
 	-- Check params:
@@ -354,10 +298,6 @@ function HandleConsoleBanIP(a_Split)
 	return true
 end
 
-
-
-
-
 function HandleConsoleBanList(a_Split)
 	if (a_Split[2] == nil) then
 		return true, table.concat(ListBannedPlayers(), ", ")
@@ -369,10 +309,6 @@ function HandleConsoleBanList(a_Split)
 
 	return true, "Unknown banlist subcommand."
 end
-
-
-
-
 
 function HandleConsoleUnban(a_Split)
 	-- Check params:
@@ -388,10 +324,6 @@ function HandleConsoleUnban(a_Split)
 	return true
 end
 
-
-
-
-
 function HandleConsoleUnbanIP(a_Split)
 	-- Check params:
 	if ((a_Split[2] == nil) or (a_Split[3] ~= nil)) then
@@ -405,10 +337,6 @@ function HandleConsoleUnbanIP(a_Split)
 	LOGINFO("Unbanned " .. a_Split[2] .. ".")
 	return true
 end
-
-
-
-
 
 --- Opens the banlist DB and checks that all the tables have the needed structure
 local function InitializeDB()
@@ -448,11 +376,6 @@ local function InitializeDB()
 	end
 end
 
-
-
-
-
-
 --- Callback for the HOOK_PLAYER_JOINED hook
 -- Kicks the player if they are banned by UUID or Name
 -- Also sets the UUID for the player in the DB, if not present
@@ -474,10 +397,6 @@ local function OnPlayerJoined(a_Player)
 	end
 end
 
-
-
-
-
 --- Callback for the HOOK_LOGIN hook
 -- Kicks the player if their IP is banned
 local function OnLogin(a_Client)
@@ -487,10 +406,6 @@ local function OnLogin(a_Client)
 		return true
 	end
 end
-
-
-
-
 
 --- Init function to be called upon plugin startup
 -- Opens the banlist DB and refreshes the player names stored within
