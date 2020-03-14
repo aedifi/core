@@ -1,9 +1,8 @@
+### Core for Aedificium
+[Lua](https://www.lua.org)-based plugin for [Cuberite](https://cuberite.org) which provides basic in-game commands and functions.
 Implements some of the basic commands needed to run a simple server.
 
-# Commands
-
-### General
-
+### Commands
 | Command | Permission | Description |
 | ------- | ---------- | ----------- |
 |/ban | core.ban | Bans a player.|
@@ -63,10 +62,7 @@ Implements some of the basic commands needed to run a simple server.
 |/whitelist remove | core.whitelist | Removes a player from the whitelist.|
 |/worlds | core.worlds | Shows a list of all the worlds.|
 
-
-
-# Permissions
-
+### Permissions
 | Permissions | Description | Commands | Recommended groups |
 | ----------- | ----------- | -------- | ------------------ |
 | core.ban |  | `/ban` |  |
@@ -112,3 +108,11 @@ Implements some of the basic commands needed to run a simple server.
 | core.weather | Allows players to change the weather. | `/weather` | admins |
 | core.whitelist | Allows players to manage the whitelist. | `/whitelist off`, `/whitelist list`, `/whitelist remove`, `/whitelist on`, `/whitelist add` | admins |
 | core.worlds |  | `/worlds` |  |
+
+---
+
+### Other information
+1. Requires the [Cuberite](https://cuberite.org) game server.
+2. Integral structure changes will follow the parent repository's commits.
+
+This is a maintained fork of [Cuberite's Core](https://github.com/cuberite/Core) by [Mathias](https://github.com/mathiascode).
