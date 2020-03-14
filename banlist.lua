@@ -311,7 +311,7 @@ function HandleConsoleBan(a_Split)
 	if not(KickPlayer(PlayerName, Reason)) then
 		LOGINFO("Could not find player " .. PlayerName .. ", but banned them anyway.")
 	else
-		LOGINFO("Successfully kicked and banned player " .. PlayerName .. ".)
+		LOGINFO("Successfully kicked and banned player " .. PlayerName .. ".")
 	end
 
 	return true
@@ -348,7 +348,7 @@ function HandleConsoleBanIP(a_Split)
 	)
 
 	-- Report:
-	LOGINFO("Successfully banned the address " .. BanIP .. ".)
+	LOGINFO("Successfully banned the address " .. BanIP .. ".")
 	return true
 end
 
@@ -382,7 +382,7 @@ function HandleConsoleUnban(a_Split)
 	RemovePlayerFromBanlist(a_Split[2])
 
 	-- Inform the admin:
-	LOGINFO("Unbanned " .. a_Split[2] .. ".)
+	LOGINFO("Unbanned " .. a_Split[2] .. ".")
 	return true
 end
 
@@ -400,7 +400,7 @@ function HandleConsoleUnbanIP(a_Split)
 	RemoveIPFromBanlist(a_Split[2])
 
 	-- Inform the admin:
-	LOGINFO("Unbanned " .. a_Split[2] .. ".)
+	LOGINFO("Unbanned " .. a_Split[2] .. ".")
 	return true
 end
 
