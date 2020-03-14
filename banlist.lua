@@ -249,7 +249,7 @@ function HandleConsoleBan(a_Split)
 	local PlayerName = a_Split[2]
 
 	-- Compose the reason, if given:
-	local Reason = cChatColor.Red .. "You have been banned."
+	local Reason = cChatColor.Rose .. "You have been banned."
 	if (a_Split[3] ~= nil) then
 		Reason = table.concat(a_Split, " ", 3)
 	end
@@ -275,7 +275,7 @@ function HandleConsoleBanIP(a_Split)
 	local BanIP = a_Split[2]
 
 	-- Compose the reason, if given:
-	local Reason = cChatColor.Red .. "You have been banned."
+	local Reason = cChatColor.Rose .. "You have been banned."
 	if (a_Split[3] ~= nil) then
 		Reason = table.concat(a_Split, " ", 3)
 	end
