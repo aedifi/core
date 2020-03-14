@@ -282,7 +282,7 @@ function HandleUnbanCommand(a_Split, a_Player)
 	RemovePlayerFromBanlist(a_Split[2])
 
 	-- Notify success:
-	LOGINFO(a_Player:GetName() .. " unbanned " .. a_Split[2])
+	LOGINFO(a_Player:GetName() .. " unbanned " .. a_Split[2] .. ".")
 	SendMessageSuccess(a_Player, cChatColor.LightGray .. "Successfully unbanned " .. a_Split[2] .. ".")
 	return true
 end
