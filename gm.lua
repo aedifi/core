@@ -1,7 +1,6 @@
 -- gm.lua
-
 -- Implements gamemode and gm commands and console commands
-
+-- Modified for the Aedificium platform.
 
 -- Used to translate gamemodes into strings
 local GameModeNameTable =
@@ -11,7 +10,6 @@ local GameModeNameTable =
 	[gmAdventure] = "adventure",
 	[gmSpectator] = "spectator",
 }
-
 
 -- Translate strings to their representative gamemodes
 -- All options from vanilla minecraft
@@ -31,9 +29,7 @@ local GameModeTable =
 	["sp"]        = gmSpectator,
 }
 
-
-local MessageFailure = "Player not found"
-
+local MessageFailure = "Couldn't find that player."
 
 --- Changes the gamemode of the given player
 -- 
@@ -53,7 +49,7 @@ local function ChangeGameMode( GameMode, PlayerName )
 		function(PlayerMatch)
 			if string.lower(PlayerMatch:GetName()) == lcPlayerName then
 				PlayerMatch:SetGameMode(GameMode)
-				SendMessage(PlayerMatch, "Gamemode set to " .. GameModeNameTable[GameMode] )
+				SendMessage(PlayerMatch, cChatColor.LightGray .. "Set your gamemode to " .. GameModeNameTable[GameMode] .. ".")
 				GMChanged = true
 			end
 			return true
@@ -72,7 +68,7 @@ function HandleChangeGMCommand(Split, Player)
 	local GameMode = GameModeTable[Split[2]]
 
 	if not GameMode then
-		SendMessage(Player, "Usage: " .. Split[1] .. " <survival|creative|adventure|spectator> [player]" )
+		SendMessage(Player, cChatColor.LightGray .. "Usage: " .. Split[1] .. " <survival|creative|adventure|spectator> [player]")
 		return true
 	end
 
@@ -81,22 +77,21 @@ function HandleChangeGMCommand(Split, Player)
 	-- Report success or failure:
 	if ChangeGameMode( GameMode, PlayerToChange ) then
 
-		local Message = "Gamemode of " .. PlayerToChange .. " set to " .. GameModeNameTable[GameMode]
-		local MessageTail = " by: " .. Player:GetName()
+		local Message = PlayerToChange .. "'s gamemode was set to " .. GameModeNameTable[GameMode]
+		local MessageTail = " by the player " .. Player:GetName()
 
 		if PlayerToChange ~= Player:GetName() then
-			SendMessageSuccess( Player, Message )
+			SendMessageSuccess(Player, cChatColor.LightGray .. Message .. ".")
 		end
 
-		LOG( Message .. MessageTail )
+		LOGINFO(Message .. MessageTail .. ".")
 
 	else
-		SendMessageFailure(Player, MessageFailure )
+		SendMessageFailure(Player, cChatColor.LightGray .. MessageFailure)
 	end
 
 	return true
 end
-
 
 --- Handles the `gamemode <survival|creative|adventure|spectator> [player]` console command
 --  
@@ -107,19 +102,19 @@ function HandleConsoleGamemode( a_Split )
 	local PlayerToChange = a_Split[3]
 	
 	if not PlayerToChange or not GameMode then
-		return true, "Usage: " .. a_Split[1] .. " <survival|creative|adventure|spectator> <player> "
+		return true, "Usage: " .. a_Split[1] .. " <survival|creative|adventure|spectator> <player>"
 	end
 
 	-- Report success or failure:
 	if ChangeGameMode( GameMode, PlayerToChange ) then
 
-		local Message = "Gamemode of " .. PlayerToChange .. " set to " .. GameModeNameTable[GameMode]
-		local MessageTail = " by: " .. "console"
+		local Message = PlayerToChange .. "'s gamemode was set to " .. GameModeNameTable[GameMode]
+		local MessageTail = " by the " .. "console"
 
-		LOG( Message .. MessageTail )
+		LOGINFO(Message .. MessageTail .. ".")
 
 	else
-		LOG( MessageFailure )
+		LOG(MessageFailure)
 	end
 	
 	return true
